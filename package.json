@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/haz3141/crypto-finder/issues"
   },
-  "homepage": "https://github.com/haz3141/crypto-finder#readme"
+  "homepage": "https://github.com/haz3141/crypto-finder#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
