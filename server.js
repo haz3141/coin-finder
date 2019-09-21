@@ -1,6 +1,6 @@
 // DEPENDENCIES
 // =============================================================
-const express = require('express');
+const express = require("express");
 
 // INSTANTIATE EXPRESS
 // =============================================================
@@ -12,8 +12,13 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// ROUTER
+// =============================================================
+require("./app/routes/api-routes")(app);
+require("./app/routes/html-routes")(app);
+
 // START SERVER
 // =============================================================
 app.listen(PORT, function() {
-	console.log(`App running at: http://localhost:${PORT}`);
+  console.log(`App running at: http://localhost:${PORT}`);
 });
