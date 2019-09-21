@@ -1,5 +1,5 @@
 {
-  "name": "coin-finder",
+  "name": "friend-finder",
   "version": "1.0.0",
   "description": "An app that lets users add crypto coins or tokens and then users can match with the best coin for them",
   "main": "server.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haz3141/coin-finder.git"
+    "url": "git+https://github.com/haz3141/friend-finder.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/haz3141/coin-finder/issues"
+    "url": "https://github.com/haz3141/friend-finder/issues"
   },
-  "homepage": "https://github.com/haz3141/coin-finder#readme",
+  "homepage": "https://github.com/haz3141/friend-finder#readme",
   "dependencies": {
     "express": "^4.17.1"
   }

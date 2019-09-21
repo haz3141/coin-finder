@@ -13,41 +13,46 @@ module.exports = function(app) {
   // POST FRIENDS
   app.post("/api/friends", function(req, res) {
     // ADD NEW FRIEND
-    const newFriend = req.body;
+    let match = {};
+    let name = "None";
+    let photo = "None";
+    let newFriend = req.body;
     friends.push(newFriend);
-
-    // SAVE MATCHING FRIEND
-    let match = {
-      name  : "",
-      photo : ""
-    };
 
     // SAVE BEST SCORE
     let tempMatch = 999;
 
     // TRAVERSE FRIENDS ARRAY
-    for (let i = 0; i < friends.length; i++) {
+    for (i = 0; i < friends.length - 1; i++) {
       // ARRAY OF SCORE DIFFERENCES
       const differenceArray = [];
-      let totalDifference = 0;
+
+      name = friends[i].name;
+      photo = friends[i].photo;
+      console.log(name);
 
       // TRAVERSE SCORES & SAVE DIFFERENCES
-      for (let j = 0; j < 10; j++) {
-        let difference = Math.abs(friends[i].scores[j] - newFriend.scores[j]);
+      for (j = 0; j < 10; j++) {
+        let difference = Math.abs(parseInt(friends[i].scores[j]) - parseInt(newFriend.scores[j]));
         differenceArray.push(difference);
       }
 
       // ADD DIFFERENCES
-      for (let k = 0; i < differenceArray.length; i++) {
+      let totalDifference = 0;
+      for (k = 0; k < differenceArray.length; k++) {
         totalDifference += differenceArray[k];
       }
 
-      // COMPARE DIFFERENCES & SET LOWEST MATCH
+      // COMPARE DIFFERENCES & MATCH
       if (totalDifference <= tempMatch) {
+        tempMatch = totalDifference;
+        console.log('MATCH');
+        /// SAVE MATCHING FRIEND
         match = {
-          name  : friends[i].name,
-          photo : friends[i].photo
+          name  : name,
+          photo : photo
         };
+        console.log(match);
       }
     }
 
