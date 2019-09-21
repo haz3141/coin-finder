@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CoinFinder | Survey</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <!-- Modal -->
+    <div class="modal" id="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Your Match</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <h2 id="matchName"></h2>
+                    <img id="matchPhoto" src="" alt="Matched Coin" width="256" height="256">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Jumbotron -->
+        <div class="jumbotron">
+            <h1 class="display-4">CoinFinder</h1>
+            <p class="lead">Get matched to the coin that's right for you!</p>
+            <hr class="my-4">
+            <p>Complete the survey below to get matched.</p>
+        </div>
+
+        <!-- Survey -->
+        <form>
+            <div class="form-group">
+                <label for="coinName">Name of Coin</label>
+                <textarea class="form-control" id="coinName" rows="1"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="coinPic">Link to Coin Logo</label>
+                <textarea class="form-control" id="coinLogo" rows="1"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="surveyQuestion01">How important is privacy to you?</label>
+                <select class="form-control" id="surveyQuestion01">
+                    <option selected>Select Answer</option>
+                    <option value="1">1 | Not Important</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 | Very Important</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="surveyQuestion02">How important are low fees to you?</label>
+                <select class="form-control" id="surveyQuestion02">
+                    <option selected>Select Answer</option>
+                    <option value="1">1 | Not Important</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 | Very Important</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="surveyQuestion03">How important are dApps to you?</label>
+                <select class="form-control" id="surveyQuestion03">
+                    <option selected>Select Answer</option>
+                    <option value="1">1 | Not Important</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 | Very Important</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="surveyQuestion04">How important is immutability to you?</label>
+                <select class="form-control" id="surveyQuestion04">
+                    <option selected>Select Answer</option>
+                    <option value="1">1 | Not Important</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 | Very Important</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="surveyQuestion05">How important is Satoshi Nakamoto to you?</label>
+                <select class="form-control" id="surveyQuestion05">
+                    <option selected>Select Answer</option>
+                    <option value="1">1 | Not Important</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 | Very Important</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit" id="submit">Submit Survey</button>
+            <br>
+            <br>
+        </form>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>
+                <a href="/api/coins">API Coins Link</a> |
+                <a href="https://github.com/haz314/coin-finder">Github Repo</a>
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    <!-- jQuery User Survey Posting Script -->
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            // Capture User Survey Answers
+            $("#submit").on("click", function (event) {
+                event.preventDefault();
+                let newCoin = {
+                    name: $("#coinName").val().trim(),
+                    photo: $("#coinLogo").val().trim(),
+                    scores: [
+                        $("#surveyQuestion01").val().trim(),
+                        $("#surveyQuestion02").val().trim(),
+                        $("#surveyQuestion03").val().trim(),
+                        $("#surveyQuestion04").val().trim(),
+                        $("#surveyQuestion05").val().trim()
+                    ]
+                };
+
+                // POST User Survey Answers
+                $.post("/api/coins", newCoin)
+                    .then(function (data) {
+
+                        //Display Results in Modal
+                        //Need to display proper content
+                        $("#matchName").text(data.name);
+                        $("#matchPhoto").attr('src', data.photo);
+
+                        //Launch Modal
+                        $('#modal').modal('show');
+                        //console.log(newCoin);
+                        
+                        //Return home on close
+                        $('#modal').on('hidden.bs.modal', function (e) {
+                            window.location.href = "/";
+                        })
+
+                    });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
